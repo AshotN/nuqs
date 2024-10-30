@@ -5,12 +5,11 @@ import { Minus, Plus } from 'lucide-react'
 import { parseAsInteger, useQueryState } from 'nuqs'
 import { useEffect, useRef } from 'react'
 
-export default function BasicCounterDemoPage() {
+export function SecondCounter() {
   const [counter, setCounter] = useQueryState(
-    'counter',
+    'secondCounter',
     parseAsInteger.withDefault(0)
   )
-
   const renderCount = useRef(0)
 
   useEffect(() => {

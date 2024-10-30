@@ -1,4 +1,4 @@
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter,  } from 'next/navigation'
 import { useCallback, useOptimistic } from 'react'
 import { debug } from '../../debug'
 import type { AdapterInterface, UpdateUrlFunction } from '../defs'
@@ -6,23 +6,21 @@ import { renderURL } from './shared'
 
 export function useNuqsNextAppRouterAdapter(): AdapterInterface {
   const router = useRouter()
-  const searchParams = useSearchParams()
   const [optimisticSearchParams, setOptimisticSearchParams] =
-    useOptimistic<URLSearchParams>(searchParams)
+    useOptimistic<URLSearchParams>(new URL(document.location.toString()).searchParams)
+
   const updateUrl: UpdateUrlFunction = useCallback((search, options) => {
     // App router
-    setOptimisticSearchParams(search)
     const url = renderURL(location.origin + location.pathname, search)
+    setOptimisticSearchParams(new URL(url).searchParams)
     debug('[nuqs queue (app)] Updating url: %s', url)
     // First, update the URL locally without triggering a network request,
     // this allows keeping a reactive URL if the network is slow.
     const updateMethod =
       options.history === 'push' ? history.pushState : history.replaceState
-    updateMethod.call(
-      history,
-      // In next@14.1.0, useSearchParams becomes reactive to shallow updates,
-      // but only if passing `null` as the history state.
-      null,
+
+    updateMethod(
+      { ...history.state, as: url, url: url },
       '',
       url
     )

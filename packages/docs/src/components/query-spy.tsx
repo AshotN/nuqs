@@ -1,9 +1,12 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
 import { Querystring, QuerystringProps } from './querystring'
+import { parseAsInteger, useQueryState } from 'nuqs'
 
 export function QuerySpy(props: Omit<QuerystringProps, 'value'>) {
-  const searchParams = useSearchParams()
-  return <Querystring value={searchParams} {...props} />
+  const [counter] = useQueryState(
+    'secondCounter',
+    parseAsInteger.withDefault(0)
+  )
+  return <Querystring value={counter} {...props} />
 }
