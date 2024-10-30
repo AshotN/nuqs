@@ -8,5 +8,5 @@ export function QuerySpy(props: Omit<QuerystringProps, 'value'>) {
     'secondCounter',
     parseAsInteger.withDefault(0)
   )
-  return <Querystring value={counter} {...props} />
+  return <Querystring value={counter.toString()} {...props} />
 }

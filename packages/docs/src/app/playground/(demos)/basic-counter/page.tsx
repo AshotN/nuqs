@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 import { SourceOnGitHub } from '../_components/source-on-github'
 import { getMetadata } from '../demos'
 import Client from './client'
-import { SecondCounter } from '@/src/app/playground/(demos)/basic-counter/unrelatedComponent'
+import { SecondCounter } from './unrelatedComponent'
 
 export const metadata = getMetadata('basic-counter')
 
@@ -16,8 +16,8 @@ export default function BasicCounterDemoPage() {
       <Description>{metadata.description}</Description>
       <Suspense>
         <Client />
+        <SecondCounter />
       </Suspense>
-      <SecondCounter />
       <SourceOnGitHub path="basic-counter/client.tsx" />
     </>
   )
