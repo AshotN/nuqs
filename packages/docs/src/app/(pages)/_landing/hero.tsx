@@ -5,9 +5,11 @@ import { ChevronDown, Github, Library } from 'lucide-react'
 import Link from 'next/link'
 import { LandingDemo } from './demo'
 
+console.log(process.env)
+
 export function HeroSection() {
   return (
-    <section className="container relative flex flex-col justify-center gap-8 xl:h-[calc(100vh-4rem)] xl:flex-row">
+    <section className="container relative mb-12 grid grid-cols-1 items-center justify-center gap-8  xl:grid-cols-2 xl:flex-row">
       <aside className="my-16 flex flex-col items-center self-center xl:my-24 xl:-mr-10 xl:ml-10 xl:flex-1 xl:items-start">
         <h1 className="text-6xl md:text-8xl">
           <NuqsWordmark />
@@ -54,6 +56,9 @@ export function HeroSection() {
       >
         <ChevronDown />
       </div>
+      <pre className='h-full'>
+        {JSON.stringify(process.env, null, 2)}
+      </pre>
     </section>
   )
 }
